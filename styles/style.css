@@ -1,8 +1,34 @@
+body{
+    background-color: #2f2f2f;
+}
+h1{
+    color: white;
+}
 #game{
     background-color: black;
     position: relative;
     margin-left: auto;
     margin-right: auto;
-    width: 90%;
-    height: 10px;
+    width: 80%;
+    height: 500px;
+    top:10px;
+}
+.startButtons{
+
+}
+.groupButtons{
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    top: 172px;
+    color:green;
+}
+#wall{
+    display: table-footer-group;
+    object-fit: cover;
+    object-position: 0 0;
+    position: absolute;
+    width: 100%;
+    height: inherit;
 }
