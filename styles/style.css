@@ -1,7 +1,7 @@
 body{
     background-color: #2f2f2f;
 }
-h1{
+h1,h2{
     color: white;
 }
 #game{
@@ -9,20 +9,19 @@ h1{
     position: relative;
     margin-left: auto;
     margin-right: auto;
-    width: 80%;
-    height: 500px;
-    top:10px;
+    width: 91%;
+    height: 86vh;
+    top: 10px;
 }
-.startButtons{
+/* .startButtons{
 
-}
+} */
 .groupButtons{
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
     position: relative;
-    top: 172px;
-    color:green;
+    top: 237px;
 }
 #wall{
     display: table-footer-group;
@@ -31,4 +30,10 @@ h1{
     position: absolute;
     width: 100%;
     height: inherit;
+}
+#border{
+    display: none;
+    color:white;
+    position: absolute;
+    z-index: 2
 }

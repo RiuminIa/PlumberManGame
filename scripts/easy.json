@@ -1,0 +1,17 @@
+[
+    {
+        "title":"level1",
+        "figures":[["straight",3]],
+        "rightRoutMatrix":[[0,0,0],[["straight",0],["straight",0],["straight",0]],[0,0,0]]
+    },
+    {
+        "title":"level2",
+        "figures":[["straight",3]],
+        "rightRoutMatrix":[[0,0,0],[["straight",0],["straight",0],["straight",0]],[0,0,0]]
+    },
+    {
+        "title":"level3",
+        "figures":[["straight",3]],
+        "rightRoutMatrix":[[0,0,0],[["straight",0],["straight",0],["straight",0]],[0,0,0]]
+    }
+]
