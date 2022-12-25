@@ -4,24 +4,32 @@ body{
 h1,h2{
     color: white;
 }
+h2{
+    font-size: 3vw;
+}
+/* button{
+    font-size: 2vw;
+} */
 #game{
     background-color: black;
     position: relative;
     margin-left: auto;
     margin-right: auto;
     width: 91%;
-    height: 86vh;
+    height: 38vw;
     top: 10px;
 }
-/* .startButtons{
-
-} */
+.startButtons{
+    font-size: 2vw;
+    margin: 2px;
+    padding: 2px 4px 2px 4px;
+}
 .groupButtons{
-    width: fit-content;
     margin-left: auto;
     margin-right: auto;
-    position: relative;
-    top: 237px;
+    position: absolute;
+    width: 100%;
+    top: 30%;
 }
 #wall{
     display: table-footer-group;
@@ -32,8 +40,54 @@ h1,h2{
     height: inherit;
 }
 #border{
-    display: none;
+    /* display: none; */
     color:white;
     position: absolute;
-    z-index: 2
+    z-index: 2;
+    top:1vw;
 }
+.grid{
+    border:solid black;
+}
+
+.grid-item {
+   width: calc((36vw) / 3);
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc((36vw) / 3);
+    text-align: center;
+    background: rgba(red, 0.25);
+    border:solid red;
+  }
+  .gridSistem1{
+    width: calc((38vw) / 3);;
+    margin-left: auto;
+    margin-right: auto;
+    align-content: center;
+  }
+  .gridSistem2{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    align-content: center;
+  }
+
+  .fill {
+    width: 100%;
+    cursor: pointer;
+  }
+  
+  .hold {
+    border: solid 5px #ccc;
+  }
+  
+  
+  .hovered {
+    border-style: dashed;
+  } 

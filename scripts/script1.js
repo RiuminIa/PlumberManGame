@@ -9,18 +9,18 @@ function initGame(){
     let groupButtons=document.createElement("div");
     groupButtons.className="groupButtons";
     let button1=document.createElement("button");
-    button1.className="btn text-white btn-primary m-2 startButtons"
+    button1.className="btn text-white btn-primary  startButtons"
     button1.innerHTML="Continue";
     button1.disabled=true;
     let button2=document.createElement("button");
-    button2.className="btn text-white btn-primary m-2 startButtons"
+    button2.className="btn text-white btn-primary  startButtons"
     button2.innerHTML="New game";
     button2.addEventListener("click",function(){
         gameDiv.removeChild(gameDiv.lastChild)
         newGame();
     })
     let button3=document.createElement("button");
-    button3.className="btn text-white btn-primary m-2 startButtons"
+    button3.className="btn text-white btn-primary  startButtons"
     button3.innerHTML="Rules";
     groupButtons.appendChild(button1);
     groupButtons.appendChild(document.createElement("br"));
@@ -39,7 +39,7 @@ function newGame(){
     a.style.padding="0";
     groupButtons.appendChild(a);
     let button1=document.createElement("button");
-    button1.className="btn text-white btn-primary m-2 startButtons"
+    button1.className="btn text-white btn-primary  startButtons"
     button1.innerHTML="Easy";
     button1.addEventListener("click",function(){
         //console.log(this.innerText.toLowerCase());
@@ -47,7 +47,7 @@ function newGame(){
         parseData(this.innerText.toLowerCase())
     })
     let button2=document.createElement("button");
-    button2.className="btn text-white btn-primary m-2 startButtons"
+    button2.className="btn text-white btn-primary  startButtons"
     button2.innerHTML="Hard";
     button2.addEventListener("click",function(){
         console.log("hard");
@@ -70,7 +70,7 @@ function levelsMenu(){
     groupButtons.appendChild(a);
     data.forEach(element => {
         let button=document.createElement("button");
-        button.className="btn text-white btn-primary m-2 startButtons"
+        button.className="btn text-white btn-primary  startButtons"
         button.innerHTML=element.title;
         groupButtons.appendChild(button);
         groupButtons.appendChild(document.createElement("br"));
