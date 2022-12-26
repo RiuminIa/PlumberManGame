@@ -30,7 +30,6 @@ function initGame(){
     gameDiv.appendChild(groupButtons)
 }
 function newGame(){
-    console.log("aaa")
     let groupButtons=document.createElement("div");
     groupButtons.className="groupButtons";
     let a=document.createElement("h2");
@@ -50,7 +49,6 @@ function newGame(){
     button2.className="btn text-white btn-primary  startButtons"
     button2.innerHTML="Hard";
     button2.addEventListener("click",function(){
-        console.log("hard");
         gameDiv.removeChild(gameDiv.lastChild);
         parseData(this.innerText.toLowerCase())
     })
@@ -98,20 +96,29 @@ function gameBoard(){
     document.querySelector('.col-8').setAttribute("style","width:"+(square*(actualLevel.size[1]+2)/0.91)+"%")
     for(let i=0;i<actualLevel.size[0];i++){
         let element=document.createElement("div");
-        element.className="grid-item";
+        element.className="grid grid-item";
         element.style.width=""+square+"vw";
         element.style.height=""+square+"vw";
         choseElement.appendChild(element);
     }
     let boardGid=document.querySelector('.gridSistem2');
+    let z=0;
     for(let x=0;x<actualLevel.size[0]*(actualLevel.size[1]+2);x++){
         let element=document.createElement("div");
-        element.className="grid-item";
+        element.className="grid";
         element.style.width=""+square+"vw";
         element.style.height=""+square+"vw";
+        if(x%(actualLevel.size[1]+2)!= 0&& x%(actualLevel.size[1]+2)!=(actualLevel.size[1]+1)){
+            element.id=""+z;
+            z++;
+            element.className+=" grid-item";
+        }
+        else{
+            element.style.border="none";
+        }
         boardGid.appendChild(element);
     }
-
+    initialLeftGrid();
 }
 
 function parseData(difficulty){
