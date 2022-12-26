@@ -1,16 +1,25 @@
 [
     {
         "title":"level1",
+        "size":[3,5],
+        "in":[1,1],
+        "out":[3,1],
         "figures":[["straight",3]],
         "rightRoutMatrix":[[0,0,0],[["straight",0],["straight",0],["straight",0]],[0,0,0]]
     },
     {
         "title":"level2",
+        "size":[3,3],
+        "in":[1,1],
+        "out":[3,1],
         "figures":[["straight",3]],
         "rightRoutMatrix":[[0,0,0],[["straight",0],["straight",0],["straight",0]],[0,0,0]]
     },
     {
         "title":"level3",
+        "size":[3,3],
+        "in":[1,1],
+        "out":[3,1],
         "figures":[["straight",3]],
         "rightRoutMatrix":[[0,0,0],[["straight",0],["straight",0],["straight",0]],[0,0,0]]
     }

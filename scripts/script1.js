@@ -77,10 +77,41 @@ function levelsMenu(){
         button.addEventListener("click",function(){
             gameDiv.removeChild(gameDiv.lastChild);
             actualLevel=element;
-            document.getElementById("border").style.display="grid";
+            gameBoard();
     })
     });
     gameDiv.appendChild(groupButtons);
+}
+
+function gameBoard(){
+    let square;
+    if(0.91*0.66/(actualLevel.size[1]+2)<(0.38/actualLevel.size[0])){
+        square=100*0.91*0.66/(actualLevel.size[1]+2)
+    }
+    else{
+        square=100*(0.38/actualLevel.size[0])
+    }
+
+    document.getElementById("border").setAttribute("style","top:"+((38-(square*actualLevel.size[0]))/2)+"vw;"+"display:flex")
+    let choseElement=document.querySelector('.gridSistem1');
+    choseElement.style.width=""+square+"vw";
+    document.querySelector('.col-8').setAttribute("style","width:"+(square*(actualLevel.size[1]+2)/0.91)+"%")
+    for(let i=0;i<actualLevel.size[0];i++){
+        let element=document.createElement("div");
+        element.className="grid-item";
+        element.style.width=""+square+"vw";
+        element.style.height=""+square+"vw";
+        choseElement.appendChild(element);
+    }
+    let boardGid=document.querySelector('.gridSistem2');
+    for(let x=0;x<actualLevel.size[0]*(actualLevel.size[1]+2);x++){
+        let element=document.createElement("div");
+        element.className="grid-item";
+        element.style.width=""+square+"vw";
+        element.style.height=""+square+"vw";
+        boardGid.appendChild(element);
+    }
+
 }
 
 function parseData(difficulty){
