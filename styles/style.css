@@ -108,8 +108,24 @@ h2{
   .hold {
     border: solid 5px #ccc;
   }
-  
+  .buttonSistem{
+    position: absolute;
+    left: 2%;
+    height: 100%;
+    bottom: 0%;
+    width: 7%;
+}
   
   .hovered {
     border-style: dashed;
   } 
+  .arrow{
+    width: 100%;
+    cursor: pointer;
+  }
+#up{
+}
+#down{
+  top: 100%;
+  position: sticky;
+}
