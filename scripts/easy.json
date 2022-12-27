@@ -2,8 +2,8 @@
     {
         "title":"level1",
         "size":[5,5],
-        "from":[5],
-        "to":[9],
+        "from":[14],
+        "to":[20],
         "figures":[["straight",3],["tail",3],["cross",3],["angle",3],["triangle",3]],
         "rightRoutMatrix":[[0,0,0],[["straight",0],["straight",0],["straight",0]],[0,0,0]]
     },
