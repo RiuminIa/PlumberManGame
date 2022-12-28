@@ -2,7 +2,8 @@ var gameDiv=document.getElementById("game");
 var data;
 var timerId;
 var actualLevel;
-
+locOrientation = screen.lockOrientation || screen.mozLockOrientation || screen.msLockOrientation || screen.orientation.lock;
+locOrientation('landscape');
 initGame();
 
 function initGame(){

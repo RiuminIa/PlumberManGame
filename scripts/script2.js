@@ -8,6 +8,7 @@ var toElement=[];
 var fromElement=[];
 var rightMatrix=[];
 var actualMenu=0;
+var dragDropElem=0;
 function initialLeftGrid(){
   matrixElements=new Array(actualLevel.size[1]*actualLevel.size[0]);
   rightMatrix=new Array(actualLevel.size[1]*actualLevel.size[0]);
@@ -76,10 +77,32 @@ function arrowParams(){
 function initialGrid(){
 const fill = document.querySelectorAll('.fill');
 const empties = document.querySelectorAll('.grid-item');
-//Rotate function
+//listeners fo drag object
 fill.forEach(e=>{
     e.addEventListener('dragstart', dragStart);
     e.addEventListener('dragend', dragEnd);
+    e.addEventListener('touchmove',function(a){
+     dragStart(a,this);
+    });
+    e.addEventListener('touchend',function(e){
+      actualPosition=[0,0];
+      try{
+      actualFill.style.left ="";
+        actualFill.style.top ="";
+        actualFill.style.border="none";
+        dragDropElem=document.elementFromPoint(coordsActual[0],coordsActual[1]);
+      if(dragDropElem.id.length>=1 && dragDropElem.id.length<3){
+        dragDrop();
+      }
+      else if(dragDropElem.tagName=='path'){
+        dragDropElem=dragDropElem.parentElement.parentElement.parentElement.parentElement;
+        dragDrop();
+      }
+    }
+      catch(error){}
+      coordsActual=[0,0];
+      dragDropElem=0;
+    })
     e.addEventListener('click',function(){
       rotate(this);
   });
@@ -109,8 +132,6 @@ function initialRightGrid(){
   actualLevel.to.forEach(e=>{
     toElement.push([toFigur.get("to"),e]);
   })
-  console.log(toElement);
-  console.log(fromElement);
   toElement.forEach(e=>{
     let figur=createElement(e[0][0],"to");
     $(figur).attr("draggable", "false");
@@ -142,16 +163,29 @@ function changeAmount(){
 var actualFill;
 var flingElement;
 let fatherElement;
-function dragStart() {
-  // this.className += ' hold';
-  this.style.border="solid 5px #ccc"
-  actualFill=this;
-  console.log(actualFill.parentElement);
+var actualPosition=[0,0];
+var coordsActual=[0,0]
+
+function dragStart(e,elem) {
+  if(elem!=undefined){
+  var touchLocation = e.targetTouches[0];
+  var elemWidth=elem.offsetWidth;
+  //elem.style.position="absolute";
+  coordsActual[0]=touchLocation.pageX;
+  coordsActual[1]=touchLocation.pageY;
+  actualPosition[0]+=touchLocation.pageX-elem.getBoundingClientRect().left-elemWidth/2;
+  actualPosition[1]+=touchLocation.pageY-elem.getBoundingClientRect().top-elemWidth/2;
+  elem.style.left =""+(actualPosition[0]) + 'px';
+  elem.style.top =""+(actualPosition[1]) + 'px';
+  elem.style.border="solid 5px #ccc"
+  actualFill=elem;
+  }
+  else{
+    this.style.border="solid 5px #ccc"
+    actualFill=this;
+  }
   if(actualFill.parentElement.id.length>=1){
-    console.log("old")
-    //flingElement=[...matrixElements[actualFill.parentElement.id]];
     fatherElement=actualFill.parentElement;
-    //matrixElements[actualFill.parentElement.id]=0;
   }
 }
 
@@ -175,12 +209,21 @@ function dragLeave() {
 }
 
 function dragDrop() {
-  this.style.border="ridge 1px";
-  console.log("countChild "+this.children.length);
+  console.log(dragDropElem);
+  if(dragDropElem==0){
+    console.log("AAAA")
+    dragDropElem=this;
+    dragDropElem.style.border="ridge 1px";
+  }
+  else{
+    actualPosition=[0,0];
+    coordsActual=[0,0];
+  }
+
   if(actualFill.parentElement.id.length>=1){
     matrixElements[actualFill.parentElement.id]=0;
   }
-    if(this.id.length>=1){
+    if(dragDropElem.id.length>=1){
       let named=elementOnGame.get("amount"+parseInt(actualFill.className.match(/\d+/)))[1];
       let coords=[...elementOnGame.get("amount"+parseInt(actualFill.className.match(/\d+/)))[0]];
       let angle=parseInt(actualFill.children[0].style.transform.match(/\d+/));
@@ -188,23 +231,24 @@ function dragDrop() {
         coords[x]=(coords[x]+angle/90)%4;
       }
       flingElement=[coords,named,angle];
-      if(this.children.length==0 || this==fatherElement){
-        matrixElements[this.id]=flingElement;
-        if(this.children.length==0){
-          this.append(actualFill);
+      if(dragDropElem.children.length==0 || dragDropElem==fatherElement){
+        matrixElements[dragDropElem.id]=flingElement;
+        if(dragDropElem.children.length==0){
+          dragDropElem.append(actualFill);
         }
       }
       else if(actualFill.parentElement.id.length>=1){
         matrixElements[fatherElement.id]=flingElement;
       }
     }
-    else if(actualFill.className.search(this.children[0].id)>0){
-      if (this.lastChild.className!="amount"){
-        this.lastChild.style.display="none";
+    else if(actualFill.className.search(dragDropElem.children[0].id)>0){
+      if (dragDropElem.lastChild.className!="amount"){
+        dragDropElem.lastChild.style.display="none";
       }
-      this.append(actualFill);
+      dragDropElem.append(actualFill);
     }
   changeAmount();
+  dragDropElem=0;
 }
 $("#clear").click(cleanBoard);
 $("#start").click(gameStart);
@@ -212,16 +256,14 @@ $("#cheat").click(cheatMode);
 
 function cheatMode(){
   $("#clear").click();
-  console.log(rightMatrix);
   //let rightMatrix=[...actualLevel.rightRoutMatrix[0]];
   ///matrixElements.fill(0);
   for(let i=0;i<rightMatrix.length;i++){
     if(rightMatrix[i]!=0){
       let foundClass=elementOnGameRecurs.get(rightMatrix[i][1]);
       let elemsies= document.querySelectorAll("."+foundClass);
-      matrixElements[i]=[rightMatrix[i][0],rightMatrix[i][1],rightMatrix[i][2]];
+      matrixElements[i]=[...[[...rightMatrix[i][0]],rightMatrix[i][1],rightMatrix[i][2]]];
 
-      console.log(rightMatrix[i]);
       elemsies[0].children[0].style.transform="rotate("+rightMatrix[i][2]+"deg)"
       elemsies[0].style.display="flex";
       $("#"+i).append(elemsies[0])
@@ -257,7 +299,6 @@ let flagLose;
 function gameStart(){
   const empties = document.querySelectorAll('.grid-item');
   var timer=500;
-  console.log($(this).text()==="open")
   if($(this).text()==="open"){
     $(this).text("closed");
   }
@@ -299,7 +340,6 @@ function gameStart(){
     el.style.display="none";
     $(el).fadeIn(timer+=300);
   })
-    console.log("fdsdfsdfdsfdsf")
     if (!flagLose && (to.length==0)){
       alert("you are winner");
     }
@@ -309,7 +349,6 @@ function gameStart(){
  
   function recursFinding(indexElement,way){
 
-    console.log(" "+indexElement+" "+way);
     if (indexMasive.indexOf(indexElement)>-1){
       return;
     }
@@ -369,25 +408,19 @@ function gameStart(){
         break;      
       }
       if(h<0 || h>=height || w<0){
-        console.log("position0 "+to);
         flagLose=true;
         return;
       }
-      console.log("position1 "+w);
       if(w>=width){
         if((to.indexOf(h))>-1){
-          console.log("position2 "+to);
           to.splice(to.indexOf(h),1);
-          console.log("position22 "+to.length);
         }
         else{
           flagLose=true;
-          console.log("position3 "+to);
           return;
         }
       }
       else{
-        console.log("position4 "+to);
         recursFinding(futureElement,e);
       }
     })
