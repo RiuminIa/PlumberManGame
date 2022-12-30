@@ -425,9 +425,6 @@ function gameStart(){
  
   function recursFinding(indexElement,way){
 
-    if (indexMasive.indexOf(indexElement)>-1){
-      return;
-    }
     if(matrixElements[indexElement][0]===undefined){
       flagLose=true;
       return;
@@ -439,6 +436,9 @@ function gameStart(){
     el=el.children[0].children[0].children[0].children[0];
     for(let i=0;i<element.length;i++){
        if((element[i]==way+2)||(element[i]==way-2)){
+        if (indexMasive.indexOf(indexElement)>-1){
+          return;
+        }
         indexMasive.push(indexElement);
           if(matrixElements[indexElement][1]=="tail"){
             // el.setAttribute("style","fill:#00277b");
