@@ -1,26 +1,62 @@
 [
     {
         "title":"level1",
-        "size":[5,5],
-        "from":[7],
-        "to":[6],
-        "figures":[["triangle",5],["angle",2],["tail",3]],
-        "rightRoutMatrix":[[0,0,0],[["straight",0],["straight",0],["straight",0]],[0,0,0]]
-    },
-    {
-        "title":"level2",
         "size":[3,3],
         "from":[5],
         "to":[9],
         "figures":[["straight",3]],
-        "rightRoutMatrix":[[0,0,0,[[0,2],"straight",0],[[0,2],"straight",0],[[0,2],"straight",0],0,0,0]]
+        "rightRoutMatrix":[[
+	0,						0,						0,
+	[[0,2],"straight",0],	[[0,2],"straight",0],	[[0,2],"straight",0],
+	0,						0,						0]]
+    },
+    {
+        "title":"level2",
+        "size":[3,3],
+        "from":[0],
+        "to":[9],
+        "figures":[["straight",2],["angle",2]],
+        "rightRoutMatrix":[[
+		[[0,2],"straight",0],	[[0,2],"straight",0],	[[0,3],"angle",270],
+		0,						0,						[[1,2],"angle",90],
+		0,						0,						0]]
     },
     {
         "title":"level3",
         "size":[3,3],
-        "from":[1,1],
-        "to":[3,1],
-        "figures":[["straight",3]],
-        "rightRoutMatrix":[[0,0,0],[["straight",0],["straight",0],["straight",0]],[0,0,0]]
+        "from":[5],
+        "to":[4],
+        "figures":[["triangle",4],["tail",5]],
+        "rightRoutMatrix":[[
+		0,							[[2],"tail",180],			[[0,2,3],"triangle",180],
+		[[0,2,3],"triangle",180],	[[0,2,3],"triangle",180],	[[0,1,3],"triangle",270],
+		[[1],"tail",90],			[[1],"tail",90],			[[1],"tail",90]]]
+    },
+    {
+        "title":"level4",
+        "size":[5,5],
+        "from":[7],
+        "to":[27],
+        "figures":[["triangle",5],["angle",3],["tail",5]],
+        "rightRoutMatrix":[[
+		[[3],"tail",270],			[[3],"tail",270],			[[3],"tail",270],			0,							0,
+		[[0,1,2],"triangle",0],		[[0,1,2],"triangle",0],		[[0,1,2],"triangle",0],		[[0,3],"angle",270],		[[3],"tail",270],
+		0,							0,							0,							[[1,2],"angle",90],			[[0,1,3],"triangle",270],
+		0,							0,							0,							[[2],"tail",180],			[[0,1,2],"triangle",0],
+		0,							0,							0,							0,							0]]
+    },
+	{
+        "title":"level5",
+        "size":[5,5],
+        "from":[7],
+        "to":[34],
+        "figures":[["triangle",5],["angle",5],["straight",4]],
+        "rightRoutMatrix":[[
+		0,							0,							0,							0,							0,
+		[[0,2],"straight",0],		[[0,2],"straight",0],		[[0,2],"straight",0],		[[0,3],"angle",270],		0,
+		0,							0,							[[2,3],"angle",180],		[[0,1,3],"triangle",270],		0,
+		0,							0,							[[1,2],"angle",90],			[[0,1,3],"triangle",270],		0,
+		0,							0,							0,							[[1,2],"angle",90],			[[0,2],"straight",0]]]
     }
-]
+
+]	

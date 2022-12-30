@@ -2,18 +2,29 @@ var matrixElements=[];
 const gridSistem1=document.querySelector('.gridSistem1');
 const gridSistem2=document.querySelector('.gridSistem2');
 var elementsMenu=[];
-var elementOnGame=new Map();
-var elementOnGameRecurs=new Map();
+var elementOnGame;
+var elementOnGameRecurs;
 var toElement=[];
 var fromElement=[];
 var rightMatrix=[];
 var actualMenu=0;
 var dragDropElem=0;
+var levelName;
+var level;
 function initialLeftGrid(){
+  $(".buttonSistem").attr("style","display:flex");
+  $(".buttonSistem2").attr("style","display:");
   matrixElements=new Array(actualLevel.size[1]*actualLevel.size[0]);
   rightMatrix=new Array(actualLevel.size[1]*actualLevel.size[0]);
+  elementsMenu.length=0;
+  elementOnGame=new Map();
+  elementOnGameRecurs=new Map(); 
+  toElement.length=0;
+  fromElement.length=0;
   rightMatrix=actualLevel.rightRoutMatrix[0].slice();
   matrixElements.fill(0);
+  levelName=actualLevel.title;
+  level=(levelName.match(/\d+/));
   actualLevel.figures.forEach(e=>{
     elementsMenu.push([allFigures.get(e[0]),e[1]]);
   })
@@ -51,8 +62,7 @@ function arrowParams(){
   $("#arrowUp").attr("draggable", "false");
   $("#arrowDown").attr("draggable", "false");
   if(stackAmount==1){
-    $("#up").attr("style","display:none");
-    $("#down").attr("style","display:none");
+    $(".buttonSistem").attr("style","display:none");
   return;
   }
   $('#down').click(function(){
@@ -98,6 +108,10 @@ fill.forEach(e=>{
         dragDropElem=dragDropElem.parentElement.parentElement.parentElement.parentElement;
         dragDrop();
       }
+      else if(dragDropElem.tagName=='svg'){
+        dragDropElem=dragDropElem.parentElement.parentElement;
+        dragDrop();
+      }
     }
       catch(error){}
       coordsActual=[0,0];
@@ -123,7 +137,7 @@ function rotate(element){
     matrixElements[element.parentElement.id][2]=(parseInt(element.children[0].style.transform.match(/\d+/))+90)%360;
        }
   element.children[0].style.transform="rotate("+((parseInt(element.children[0].style.transform.match(/\d+/))+90)%360)+"deg)";
-
+  setCookie(levelName,matrixElements);
 }
 function initialRightGrid(){
   actualLevel.from.forEach(e=>{
@@ -249,10 +263,24 @@ function dragDrop() {
     }
   changeAmount();
   dragDropElem=0;
+  setCookie(levelName,matrixElements);
 }
 $("#clear").click(cleanBoard);
 $("#start").click(gameStart);
 $("#cheat").click(cheatMode);
+$("#back").click(back);
+
+function back(){
+  if($("#start").text()!="open"){
+    $("#start").click();
+  }
+  gridSistem1.innerHTML="";
+  gridSistem2.innerHTML="";
+  document.getElementById("border").display="none";
+  $(".buttonSistem").attr("style","display:none");
+  $(".buttonSistem2").attr("style","display:none");
+  levelsMenu("continue");
+}
 
 function cheatMode(){
   $("#clear").click();
@@ -273,6 +301,7 @@ function cheatMode(){
   }
   }
   changeAmount();
+  setCookie(levelName,matrixElements);
 }
 
 
@@ -293,6 +322,7 @@ function cleanBoard(){
       }
     }
 changeAmount();
+setCookie(levelName,matrixElements);
 }
 let flagLose;
 
@@ -301,9 +331,11 @@ function gameStart(){
   var timer=500;
   if($(this).text()==="open"){
     $(this).text("closed");
+    this.setAttribute("style","background-color:red")
   }
   else{
     $(this).text("open");
+    this.setAttribute("style","background-color:#8bdebb")
     empties.forEach(e=>{
       $(e).css('pointer-events','');
       if(e.children.length>0 && e.children[0].className!="amount"){
@@ -332,7 +364,9 @@ function gameStart(){
   actualLevel.to.forEach(e=>{
     to.push(parseInt(e/(width+2)));
   })
+
   recursFinding(parseInt((from/(width+2))*width),2);
+
   indexMasive.forEach(e=>{
     let el=document.getElementById(""+e);
     el=el.children[0].children[0].children[0].children[0];
@@ -340,12 +374,48 @@ function gameStart(){
     el.style.display="none";
     $(el).fadeIn(timer+=300);
   })
+    $("#mod").attr("style","display:inline-grid");
     if (!flagLose && (to.length==0)){
-      alert("you are winner");
+      console.log("a")
+      document.getElementById("modC").children[0].innerText="You won!!!";
+      console.log(document.getElementById("modC").firstChild);
+      console.log(level);
+      if (level<10){     
+      $("#next").attr("style","display:inline-grid");
+      $("#next").click(function(){
+        level=parseInt(levelName.match(/\d+/))+1;
+        if($("#start").text()!="open"){
+          $("#start").click();
+        }
+        cleanBoard();
+        matrixElements.fill(0);
+        gridSistem1.innerHTML="";
+        gridSistem2.innerHTML="";
+        document.getElementById("border").display="none";
+        $(".buttonSistem").attr("style","display:none");
+        $(".buttonSistem2").attr("style","display:none");
+        if(level==6){
+          data=[...data2];
+        }
+          setCookie('level'+level,matrixElements);
+          actualLevel=data.find(e => e.title === ('level'+level));
+        $("#next").attr("style","display:none");
+        $("#mod").attr("style","none");
+        $("#next").unbind();
+        gameBoard();
+      });
+    }
     }
     else{
-      alert("you are loser");
+      console.log(document.getElementById("modC").children[0])
+      document.getElementById("modC").children[0].innerText="You lose";
     }
+    $("#continue").click(function(){
+      $("#mod").attr("style","display:none");
+      $("#next").attr("style","display:none");
+      $("#continue").unbind();
+    });
+
  
   function recursFinding(indexElement,way){
 
@@ -427,14 +497,8 @@ function gameStart(){
     return;
   }
 }
-function result(to){
-  if (!flagLose && (to.length==0)){
-    alert("you are winner");
-  }
-  else{
-    alert("you are loser");
-  }
-  document.getElementById(""+indexMasive[indexMasive.length-1]).removeEventListener('DOMSubtreeModified', result, false);
+function nextLevel(){
+
 }
 
 function sleep(milliseconds) {

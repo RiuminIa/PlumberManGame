@@ -1,10 +1,15 @@
 var gameDiv=document.getElementById("game");
 var data;
+var data2;
+var dataEasy;
+var dataHard;
 var timerId;
 var actualLevel;
-locOrientation = screen.lockOrientation || screen.mozLockOrientation || screen.msLockOrientation || screen.orientation.lock;
-locOrientation('landscape');
+
+// locOrientation = screen.lockOrientation || screen.mozLockOrientation || screen.msLockOrientation || screen.orientation.lock;
+// locOrientation('landscape');
 initGame();
+
 
 function initGame(){
     let groupButtons=document.createElement("div");
@@ -12,12 +17,30 @@ function initGame(){
     let button1=document.createElement("button");
     button1.className="btn text-white btn-primary  startButtons"
     button1.innerHTML="Continue";
-    button1.disabled=true;
+    if(checkCookie()){
+    button1.addEventListener("click",function(){
+        gameDiv.removeChild(gameDiv.lastChild);
+        var codes = getCookie();
+        var dCodes = codes[0];
+        var dCodes2 = codes[1]; 
+        if((parseInt(dCodes.match(/\d+/)))>5){
+            parseData("hard","continue",dCodes,dCodes2);
+        }
+        else{
+            parseData("easy","continue",dCodes,dCodes2);
+        }
+    })
+    }
+    else{
+        button1.disabled=true;
+    }
+    //button1.disabled=true;
     let button2=document.createElement("button");
     button2.className="btn text-white btn-primary  startButtons"
     button2.innerHTML="New game";
     button2.addEventListener("click",function(){
         gameDiv.removeChild(gameDiv.lastChild)
+        deleteCookie();
         newGame();
     })
     let button3=document.createElement("button");
@@ -30,6 +53,18 @@ function initGame(){
     groupButtons.appendChild(button3);
     gameDiv.appendChild(groupButtons)
 }
+function continueGame(dCodes,dCodes2){
+        console.log(data);
+        console.log(actualLevel);
+        actualLevel=data.find(e => e.title === dCodes);
+        console.log(actualLevel);
+        gameBoard();
+        rightMatrix=dCodes2.slice();
+        cheatMode();
+        rightMatrix=actualLevel.rightRoutMatrix[0].slice();
+}
+
+
 function newGame(){
     let groupButtons=document.createElement("div");
     groupButtons.className="groupButtons";
@@ -44,7 +79,7 @@ function newGame(){
     button1.addEventListener("click",function(){
         //console.log(this.innerText.toLowerCase());
         gameDiv.removeChild(gameDiv.lastChild);
-        parseData(this.innerText.toLowerCase())
+        parseData(this.innerText.toLowerCase(),"new")
     })
     let button2=document.createElement("button");
     button2.className="btn text-white btn-primary  startButtons"
@@ -53,13 +88,23 @@ function newGame(){
         gameDiv.removeChild(gameDiv.lastChild);
         parseData(this.innerText.toLowerCase())
     })
+    let button3=document.createElement("button");
+    button3.className="btn text-white btn-primary  startButtons"
+    button3.innerHTML="back";
+    button3.addEventListener("click",function(){
+        gameDiv.removeChild(gameDiv.lastChild);
+        initGame();
+    })
     
     groupButtons.appendChild(button1);
     groupButtons.appendChild(document.createElement("br"));
     groupButtons.appendChild(button2);
+    groupButtons.appendChild(document.createElement("br"));
+    groupButtons.appendChild(button3);
     gameDiv.appendChild(groupButtons)
 }
-function levelsMenu(){
+
+function levelsMenu(param){
     let groupButtons=document.createElement("div");
     groupButtons.className="groupButtons";
     let a=document.createElement("h2");
@@ -67,6 +112,20 @@ function levelsMenu(){
     a.style.margin="5px";
     a.style.padding="0";
     groupButtons.appendChild(a);
+    if(param!=undefined){
+        let button1=document.createElement("button");
+        button1.className="btn text-white btn-primary  startButtons"
+        button1.innerHTML="Continue";
+        button1.addEventListener("click",function(){
+            gameDiv.removeChild(gameDiv.lastChild);
+            var codes = getCookie();
+            var dCodes = codes[0];
+            var dCodes2 = codes[1]; 
+            continueGame(dCodes,dCodes2);
+        })
+        groupButtons.appendChild(button1);
+        groupButtons.appendChild(document.createElement("br"));
+    }
     data.forEach(element => {
         let button=document.createElement("button");
         button.className="btn text-white btn-primary  startButtons"
@@ -77,8 +136,18 @@ function levelsMenu(){
             gameDiv.removeChild(gameDiv.lastChild);
             actualLevel=element;
             gameBoard();
+            setCookie(levelName,matrixElements);
     })
     });
+    let button3=document.createElement("button");
+    button3.className="btn text-white btn-primary  startButtons"
+    button3.innerHTML="back";
+    button3.addEventListener("click",function(){
+        gameDiv.removeChild(gameDiv.lastChild);
+        data=undefined;
+        newGame();
+    })
+    groupButtons.appendChild(button3);
     gameDiv.appendChild(groupButtons);
 }
 var stackAmount=0;
@@ -129,17 +198,32 @@ function gameBoard(){
     initialLeftGrid();
 }
 
-function parseData(difficulty){
+function parseData(difficulty,game,dCodes,dCodes2){
+    if(difficulty=="easy"){
+    readTextFile("./scripts/"+"hard"+".json", function(text){
+        data2=JSON.parse(text);
+    });
+    }
+    else{
+        readTextFile("./scripts/"+"easy"+".json", function(text){
+            data2=JSON.parse(text);
+        });
+    }
     readTextFile("./scripts/"+difficulty+".json", function(text){
         data = JSON.parse(text);
     });
-    timerId = setInterval(() => checkData(), 5);
+    timerId = setInterval(() => checkData(game,dCodes,dCodes2), 5);
 }
-function checkData(){
+function checkData(game,dCodes,dCodes2){
     if (data!=undefined){
         clearInterval(timerId);
         timerId=0;
-        levelsMenu();
+        if (game==="continue"){
+            continueGame(dCodes,dCodes2)
+        }
+        else{
+            levelsMenu();
+        }
     }
 }
 
@@ -154,3 +238,4 @@ function readTextFile(file, callback) {
     }
     rawFile.send(null);
 }
+
