@@ -150,9 +150,10 @@ function levelsMenu(param){
     groupButtons.appendChild(button3);
     gameDiv.appendChild(groupButtons);
 }
-var stackAmount=0;
+var stackAmount;
 function gameBoard(){
     let square;
+    stackAmount=0;
     if(0.91*0.66/(actualLevel.size[1]+2)<(0.38/actualLevel.size[0])){
         square=100*0.91*0.66/(actualLevel.size[1]+2)
     }

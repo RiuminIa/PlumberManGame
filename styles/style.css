@@ -122,13 +122,14 @@ h2{
 }
 .buttonSistem2{
   position: absolute;
-  left: 22%;
-  bottom: 37%;
-  align-content: center;
-  text-align: center;
-  align-content: center;
-  align-items: center;
-  width: 12%;
+    left: 24%;
+    bottom: 37%;
+    align-content: center;
+    text-align: center;
+    align-content: center;
+    align-items: center;
+    width: min-content;
+  
 }
  .btnGame{
   border-radius: 11px;

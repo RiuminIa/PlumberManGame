@@ -7,12 +7,12 @@ var elementOnGameRecurs;
 var toElement=[];
 var fromElement=[];
 var rightMatrix=[];
-var actualMenu=0;
-var dragDropElem=0;
+var actualMenu;
+var dragDropElem;
 var levelName;
 var level;
 function initialLeftGrid(){
-  $(".buttonSistem").attr("style","display:flex");
+  $(".buttonSistem").attr("style","display:block");
   $(".buttonSistem2").attr("style","display:");
   matrixElements=new Array(actualLevel.size[1]*actualLevel.size[0]);
   rightMatrix=new Array(actualLevel.size[1]*actualLevel.size[0]);
@@ -21,6 +21,8 @@ function initialLeftGrid(){
   elementOnGameRecurs=new Map(); 
   toElement.length=0;
   fromElement.length=0;
+  actualMenu=0;
+  dragDropElem=0;
   rightMatrix=actualLevel.rightRoutMatrix[0].slice();
   matrixElements.fill(0);
   levelName=actualLevel.title;
@@ -65,24 +67,28 @@ function arrowParams(){
     $(".buttonSistem").attr("style","display:none");
   return;
   }
-  $('#down').click(function(){
-      let beforeMenu=actualMenu;
-      actualMenu=(actualMenu+1)%stackAmount;
-      $('.stack'+beforeMenu).css('display','none');
-      $('.stack'+actualMenu).css('display','flex');
-  });
-  $('#up').click(function(){
-    let beforeMenu=actualMenu;
-    if((actualMenu-1)<0){
-      actualMenu=stackAmount-1;
-    }
-    else{
-      actualMenu=(actualMenu-1)%stackAmount;
-    }
-    $('.stack'+beforeMenu).css('display','none');
-    $('.stack'+actualMenu).css('display','flex');
-});
 }
+
+$('#down').click(function(){
+  let beforeMenu=actualMenu;
+  actualMenu=(actualMenu+1)%stackAmount;
+  $('.stack'+beforeMenu).css('display','none');
+  $('.stack'+actualMenu).css('display','flex');
+});
+
+$('#up').click(function(){
+let beforeMenu=actualMenu;
+if((actualMenu-1)<0){
+  actualMenu=stackAmount-1;
+}
+else{
+  actualMenu=(actualMenu-1)%stackAmount;
+}
+$('.stack'+beforeMenu).css('display','none');
+$('.stack'+actualMenu).css('display','flex');
+});
+
+
 
 function initialGrid(){
 const fill = document.querySelectorAll('.fill');
