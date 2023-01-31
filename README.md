@@ -1,5 +1,5 @@
 # PlumberMan game
-In this game you need to correctly assemble the plumbing from ![image](./images/from2.svg) the source to the consumer.
+In this game you need to correctly assemble the plumbing from ![image](./images/from.svg) the source to the consumer.
 
 
 
