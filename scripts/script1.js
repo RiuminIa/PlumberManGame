@@ -9,7 +9,7 @@ var actualLevel;
 // locOrientation = screen.lockOrientation || screen.mozLockOrientation || screen.msLockOrientation || screen.orientation.lock;
 // locOrientation('landscape');
 initGame();
-
+screen.lockOrientation('landscape');
 
 function initGame(){
     let groupButtons=document.createElement("div");
@@ -46,6 +46,11 @@ function initGame(){
     let button3=document.createElement("button");
     button3.className="btn text-white btn-primary  startButtons"
     button3.innerHTML="Rules";
+    button3.addEventListener("click", function(){
+        gameDiv.removeChild(gameDiv.lastChild);
+        displayRules();
+    });
+
     groupButtons.appendChild(button1);
     groupButtons.appendChild(document.createElement("br"));
     groupButtons.appendChild(button2);
@@ -240,3 +245,44 @@ function readTextFile(file, callback) {
     rawFile.send(null);
 }
 
+function displayRules(){
+    let rulesText=document.createElement("div");
+    rulesText.className="rulesText";
+    rulesText.style.position="absolute";
+    console.log("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+
+    let a1=document.createElement("p");
+    a1.innerHTML="1. - choose a difficulty";
+    a1.style.margin="5px";
+    a1.style.color="white";
+    a1.style.fontSize="2vw";
+    a1.style.textShadow="2px 2px 4px #0094FF";
+    a1.style.padding="0";
+    rulesText.appendChild(a1);
+    let a2=document.createElement("p");
+    a2.innerHTML="2. - choose a level";
+    a2.style.margin="5px";
+    a2.style.color="white";
+    a2.style.fontSize="2vw";
+    a2.style.textShadow="2px 2px 4px #0094FF";
+    a2.style.padding="0";
+    rulesText.appendChild(a2);
+    let a3=document.createElement("p");
+    a3.innerHTML="3. - you'll see a bar at the left, from there you can drag a pipe and drop it into the grid to the right. The goal is to make a path from the faucet to the end pipe. Tapping a placed pipe will rotate it. You can put back a pipe back to its place where you picked it up from. If you think you put together a working path, click/tap the 'open' button to check your path. Before you can make any changes to yout path, you need to close the water. Hitting the clear button will reset the grid. Hitting the 'cheat' button will show a working path. If you wish to go back to the menus, hit the 'back button'";
+    a3.style.margin="5px";
+    a3.style.color="white";
+    a3.style.fontSize="2vw";
+    a3.style.textShadow="2px 2px 4px #0094FF";
+    a3.style.padding="0";
+    rulesText.appendChild(a3);
+
+    let button4=document.createElement("button");
+    button4.className="btn text-white btn-primary  startButtons"
+    button4.innerHTML="back";
+    button4.addEventListener("click",function(){
+        gameDiv.removeChild(gameDiv.lastChild);
+        initGame();
+    })
+    rulesText.appendChild(button4);
+    gameDiv.appendChild(rulesText);
+}
