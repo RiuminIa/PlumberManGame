@@ -1,19 +1,50 @@
-# PlumberMan game
-In this game you need to correctly assemble the plumbing from the source to the consumer.\
-The parts for the piping are on the left panel. ![image](./images/left.png)
-
-
-
-Vytvorte oknovú aplikáciu, ktorá umožní používateľovi kresliť a presúvať zadaný tvar. Aplikácia bude mať nasledovnú funkcionalitu (40 bodov):
-
-1. Vytvorenie hlavného okna, ktoré bude obsahovať Ovládacie prvky a Kresliacu plochu \[5b].
-2. Kreslenie jedného tvaru: strom \[15b].
-3. Presúvanie už nakreslených tvarov \[15b].
-4. Voľba farby geometrického tvaru prostredníctvom [JButton](https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/javax/swing/JButton.html) \[4b].
-5. Zatvorenie aplikácie cez tlačidlo na zatvorenie aplikácie poskytnuté operačným systémom \[1b].
-
-## Podrobný popis k bodu 1:
-
-Väčšinu plochy okna bude zaberať Kresliaca plocha. V dolnej časti okna sa budú nachádzať Ovládacie
-prvky. Ovládacie prvky budú tvoriť: [JButton](https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/javax/swing/JButton.html) “Strom”, [JButton](https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/javax/swing/JButton.html) “Presun”, [JButton](https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/javax/swing/JButton.html) “Ďalšia farba” a [JLabel](https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/javax/swing/JLabel.html). Každý z týchto prvkov musí zaberať štvrtinu celkového miesta vyhradeného pre ovládacie prvky.
-
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>HTML5</title>
+      <meta charset="utf-8" />
+   </head>
+   <body>
+      <header>
+         <img src="webLogo.png" id="top" alt="HTML5" height="100"/>
+         <h1>Основы Web-технологий</h1>
+         <article>
+            <ul>
+               <li><a href="index.html">Главная</a></li>
+               <li><a href="technologies.html">Web-технологии</a><li>
+                  <section>
+                     <ul>
+                        <li><a href="html5.html">HTML5</a></li>
+                        <li><a href="css3.html">CSS3</a></li>
+                        <li><a href="javaScript.html">JavaScript</a></li>
+                     </ul>
+                  </section>
+               <li><a href="calculator.html">Калькулятор</a></li>
+               <li><a href="test.html">Тест</a></li>
+            </ul>      
+         </article>
+      </header>
+      <div>
+         <h3>Дополнительная информация</h3>
+         <p><i><b>Язык разметки в</b> компьютерной</i> терминологии &mdash; набор символов или последовательностей, вставляемых в текст для передачи информации о его выводе или строении. Принадлежит классу <i>компьютерных языков</i>. Текстовый документ, написанный с использованием языка разметки, содержит не только сам текст (как последовательность слов и знаков препинания), но и дополнительную информацию о различных его участках &mdash; например, указание на заголовки, выделения, списки и т.д. В более сложных случаях язык разметки позволяет вставлять в документ интерактивные элементы и содержание других документов.<br />
+         <i><b>Шифрование</b></i> &mdash; обратимое преобразование информации в целях сокрытия от <i>неавторизованных</i> лиц, с предоставлением, в это же время, <i>авторизованным</i> пользователям доступа к ней. Главным образом, шифрование служит задачей соблюдения <em>конфиденциальности</em> передаваемой информации. Важной особенностью любого алгоритма шифрования является использование <em>ключа</em>, который утверждает выбор конкретного преобразования из совокупности возможных для данного алгоритма.</p>
+         <h2>HTML5</h2>
+         <p><i><b><abbr title="(от англ. HyperText Markup Language — «язык гипертекстовой разметки»)">HTML</abbr></b></i> (от англ. HyperText Markup Language — «язык <em>гипертекстовой разметки</em>») — стандартный <i>язык разметки</i> документов во <em>Всемирной паутине</em>. Большинство <i>Web-страниц</i> содержат описание разметки на языке HTML (или XHTML). Язык HTML интерпретируется <em>браузерами</em> и отображается в виде документа в удобной для человека форме.<br /></p>
+         <p>Язык HTML является приложением <abbr title="Стандартный обобщённый язык разметки">SGML</abbr> (стандартного обобщённого языка разметки) и соответствует международному стандарту ISO 8879.</p>
+         <p>Язык XHTML является более строгим вариантом HTML, он следует всем ограничениям XML и, фактически, XHTML можно воспринимать как приложение языка XML к области разметки гипертекста.</p>
+         <p>Во всемирной паутине HTML-страницы, как правило, передаются браузерам от сервера по протоколам HTTP или HTTPS, в виде простого текста или с использованием <i>шифрования</i>.</p>
+         <h3>Общее представление</h3>
+         <p>Язык HTML был разработан <i>британским</i> учёным <em>Тимом Бернерсом-Ли</em> приблизительно в <em>1986–1991 годах</em> в стенах <i>Европейского Центра ядерных исследований в Женеве (Швейцария)</i>. HTML создавался как язык для обмена научной и технической документацией, пригодный для использования людьми, не являющимися специалистами в области <i>вёрстки</i>. HTML успешно справлялся с проблемой сложности SGML путём определения небольшого набора структурных и <em>семантических</em> элементов — дескрипторов. Дескрипторы также часто называют <em>«тегами»</em>. С помощью HTML можно легко создать относительно простой, но красиво оформленный документ. Помимо упрощения структуры документа, в HTML внесена поддержка <em>гипертекста</em>. <i>Мультимедийные</i> возможности были добавлены позже.</p>
+         <p>Изначально язык HTML был задуман и создан как средство структурирования и форматирования документов без их привязки к средствам воспроизведения (отображения). В идеале, текст с разметкой HTML должен был без стилистических и структурных искажений воспроизводиться на оборудовании с различной технической оснащённостью (цветной экран современного компьютера, монохромный экран органайзера, ограниченный по размерам экран мобильного телефона или устройства и программы голосового воспроизведения текстов). Однако современное применение HTML очень далеко от его изначальной задачи. Например, тег &lt;TABLE&gt; предназначен для создания в документах таблиц, но часто используется и для оформления размещения элементов на странице. С течением времени основная идея платформонезависимости языка HTML была принесена в жертву современным потребностям в мультимедийном и графическом оформлении.</p>
+         <h3>Браузеры</h3>
+         <p>Текстовые документы, содержащие разметку на языке HTML (такие документы традиционно имеют <em>расширение</em> <code>.html</code> или <code>.htm</code>), обрабатываются специальными <i>приложениями</i>, которые отображают документ в его форматированном виде. Такие приложения, называемые &laquo;браузерами&raquo; или &laquo;интернет-обозревателями&raquo;, обычно предоставляют пользователю удобный <em>интерфейс</em> для запроса <i>Web-страниц</i>, их просмотра (и вывода на иные внешние устройства) и, при необходимости, отправки введённых пользователем данных на сервер. Наиболее популярными на сегодняшний день браузерами являются <em>Google Chrome</em>, <em>Mozilla Firefox</em>, <em>Opera</em>, <em>Internet Explorer</em> и <em>Safari</em>.</p>
+         <p><a href="#top">Вернуться вверх</a>
+      </div>
+      <footer>
+         <div>
+            <a href="mailto:sk_alexis@ukr.net">Пишите: sk_alexis@ukr.net</a><br />
+            &copy; Семилет А.К., 2016г.
+         </div>   
+      </footer>
+   </body>
+</html>
