@@ -1,5 +1,9 @@
-# Riadny termín \[60b], 3.6.2021 14:00
-B-OOP 2021
+# PlumberMan game
+![image](./images/from.svg)
+In this game you need to correctly assemble the plumbing from ![image](./images/from.svg) the source to (./images/to.svg) the consumer.
+
+
+
 
 Vytvorte oknovú aplikáciu, ktorá umožní používateľovi kresliť a presúvať zadaný tvar. Aplikácia bude mať nasledovnú funkcionalitu (40 bodov):
 
