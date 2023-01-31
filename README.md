@@ -1,6 +1,6 @@
 # PlumberMan game
 In this game you need to correctly assemble the plumbing from the source to the consumer.
-The parts for the piping are on the left panel. ![image](./images/left.img)
+The parts for the piping are on the left panel. ![image](./images/left.png)
 
 
 
